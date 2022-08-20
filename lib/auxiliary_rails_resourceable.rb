@@ -2,7 +2,6 @@ require_relative 'auxiliary_rails_resourceable/version'
 
 require 'pagy'
 require 'pundit'
-require 'ransack'
 
 require_relative 'auxiliary_rails/concerns/resourceable'
 
