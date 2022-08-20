@@ -1,5 +1,6 @@
 module AuxiliaryRails
   module Concerns
+    # Resourceable - concern for controllers
     module Resourceable
       extend ActiveSupport::Concern
       include Pagy::Backend
@@ -153,6 +154,17 @@ module AuxiliaryRails
 
       # system
 
+      def controller_module_parent
+        if Rails.version < '6'
+          raise NotImplementedError,
+            '`controller_module_parent` needs to be implented because ' \
+              'Rails < 6 does not supports `module_parent`'
+        end
+
+        self.class.module_parent
+      end
+
+      # rubocop:disable Metrics/MethodLength
       def path_method_name(type, action = nil)
         path_parts = [
           'path',
@@ -168,16 +180,7 @@ module AuxiliaryRails
 
         path_parts.reverse.join('_')
       end
-
-      def controller_module_parent
-        if Rails.version < '6'
-          raise NotImplementedError,
-            '`controller_module_parent` needs to be implented because ' \
-            'Rails < 6 does not supports `module_parent`'
-        end
-
-        self.class.module_parent
-      end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

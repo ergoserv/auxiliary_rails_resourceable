@@ -1,9 +1,35 @@
+require:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.5
   NewCops: enable
+#################### Layout ##############################
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/LineEndStringConcatenationIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+#################### Metrics ##############################
+
+Metrics/ModuleLength:
+  Exclude:
+    - lib/auxiliary_rails/concerns/resourceable.rb
+
+#################### Style ###############################
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/LineLength:
-  Max: 120
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
