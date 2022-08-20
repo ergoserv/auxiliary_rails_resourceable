@@ -1,12 +1,8 @@
 # AuxiliaryRailsResourceable
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/auxiliary_rails_resourceable`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ```ruby
 gem 'auxiliary_rails_resourceable'
@@ -19,10 +15,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install auxiliary_rails_resourceable
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
@@ -41,3 +33,11 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the AuxiliaryRailsResourceable project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/auxiliary_rails_resourceable/blob/master/CODE_OF_CONDUCT.md).
+
+-------------------------------------------------------------------------------
+
+[![alt text](https://raw.githubusercontent.com/ergoserv/auxiliary_rails/master/assets/ErgoServ_horizontalColor@sign+text+bg.png "ErgoServ - Web and Mobile Development Company")](https://www.ergoserv.com)
+
+This gem was created and is maintained by [ErgoServ](https://www.ergoserv.com).
+
+If you like what you see and would like to hire us or join us, [get in touch](https://www.ergoserv.com)!
