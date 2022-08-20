@@ -16,6 +16,35 @@ Or install it yourself as:
 
     $ gem install auxiliary_rails_resourceable
 
+## Usage
+
+```ruby
+# app/controllers/resources_controller.rb
+# @abstract
+class ResourcesController < ApplicationController
+  include AuxiliaryRails::Concerns::Resourceable
+end
+
+# app/views/resources/
+# - index.html.erb
+# - new.html.erb
+# - show.html.erb
+# - edit.html.erb
+# - _form.html.erb
+# - _search_form.html.erb
+# - _list.html.erb
+
+# /config/locales/resources.en.yml
+en:
+  resources:
+    create:
+      notice: "%{resource_name} was successfully created."
+    update:
+      notice: "%{resource_name} was successfully updated."
+    destroy:
+      notice: "%{resource_name} was successfully destroyed."
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
