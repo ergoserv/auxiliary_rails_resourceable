@@ -83,7 +83,7 @@ module AuxiliaryRails
       # config
 
       def default_sorts
-        ['id asc']
+        %w[name title id].find { |v| v.in?(resource_class.column_names) } || []
       end
 
       def id_param
@@ -99,7 +99,7 @@ module AuxiliaryRails
       end
 
       def resource_name
-        @resource_name ||= controller_name.singularize
+        @resource_name ||= collection_name.singularize
       end
 
       # helpers
