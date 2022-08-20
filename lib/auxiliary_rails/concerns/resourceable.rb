@@ -106,11 +106,15 @@ module AuxiliaryRails
 
       def collection
         instance_variable_get("@#{collection_name}") ||
-          (self.collection = resource_scope)
+          (self.collection = collection_scope)
       end
 
       def collection=(object)
         instance_variable_set("@#{collection_name}", object)
+      end
+
+      def collection_scope
+        policy_scope(resource_class.all)
       end
 
       def resource
@@ -126,10 +130,6 @@ module AuxiliaryRails
         params
           .require(resource_name)
           .permit(policy(resource_class).permitted_attributes)
-      end
-
-      def resource_scope
-        policy_scope(resource_class.all)
       end
 
       def build_resource(attributes = {})
