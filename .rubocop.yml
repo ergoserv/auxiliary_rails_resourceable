@@ -4,8 +4,15 @@ require:
   - rubocop-rspec
 
 AllCops:
+  Exclude:
+    - bin/bundle
+    - bin/rake
+    - bin/rspec
+    - bin/rubocop
+    - vendor/**/* # fix for CI
   TargetRubyVersion: 2.5
   NewCops: enable
+
 #################### Layout ##############################
 
 Layout/ArgumentAlignment:

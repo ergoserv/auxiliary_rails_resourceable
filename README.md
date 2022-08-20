@@ -1,5 +1,7 @@
 # AuxiliaryRailsResourceable
 
+[![Gem](https://img.shields.io/gem/v/auxiliary_rails_resourceable.svg)](https://rubygems.org/gems/auxiliary_rails_resourceable)
+
 ## Installation
 
 Add this line to your application's `Gemfile`:
@@ -31,8 +33,8 @@ end
 # - show.html.erb
 # - edit.html.erb
 # - _form.html.erb
-# - _search_form.html.erb
 # - _list.html.erb
+# - _search_form.html.erb
 
 # /config/locales/resources.en.yml
 en:
