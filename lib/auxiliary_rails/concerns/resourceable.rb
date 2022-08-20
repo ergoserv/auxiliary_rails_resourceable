@@ -37,11 +37,7 @@ module AuxiliaryRails
       end
 
       def create
-        self.resource = build_resource(resource_params)
-
-        authorize resource
-
-        if resource.save
+        if create_resource
           redirect_to resource_path(resource),
             notice: t('resources.create.notice',
               resource_name: resource_class.model_name.human)
@@ -57,11 +53,7 @@ module AuxiliaryRails
       end
 
       def update
-        resource.assign_attributes(resource_params)
-
-        authorize resource
-
-        if resource.save
+        if update_resource
           redirect_to resource_path(resource),
             notice: t('resources.update.notice',
               resource_name: resource_class.model_name.human)
@@ -71,7 +63,7 @@ module AuxiliaryRails
       end
 
       def destroy
-        resource.destroy
+        destroy_resource
 
         redirect_to collection_path,
           notice: t('resources.destroy.notice',
@@ -136,8 +128,28 @@ module AuxiliaryRails
         resource_class.new(attributes)
       end
 
+      def create_resource
+        self.resource = build_resource(resource_params)
+
+        authorize resource
+
+        resource.save
+      end
+
       def find_resource
         resource_class.find(id_param)
+      end
+
+      def update_resource
+        resource.assign_attributes(resource_params)
+
+        authorize resource
+
+        resource.save
+      end
+
+      def destroy_resource
+        resource.destroy
       end
 
       def collection_path
