@@ -10,7 +10,7 @@ module AuxiliaryRails
         before_action only: %i[index new] do
           authorize resource_class
         end
-        before_action :resource, only: %i[show edit destroy] do
+        before_action :resource, only: %i[show edit] do
           authorize resource
         end
 
@@ -106,7 +106,7 @@ module AuxiliaryRails
       end
 
       def collection_scope
-        policy_scope(resource_class.all)
+        policy_scope(resource_class)
       end
 
       def resource
@@ -131,7 +131,7 @@ module AuxiliaryRails
       def create_resource
         self.resource = build_resource(resource_params)
 
-        authorize resource
+        authorize resource, :create?
 
         resource.save
       end
@@ -143,12 +143,14 @@ module AuxiliaryRails
       def update_resource
         resource.assign_attributes(resource_params)
 
-        authorize resource
+        authorize resource, :update?
 
         resource.save
       end
 
       def destroy_resource
+        authorize resource, :destroy?
+
         resource.destroy
       end
 
