@@ -38,9 +38,7 @@ module AuxiliaryRails
 
       def create
         if create_resource
-          redirect_to resource_path(resource),
-            notice: t('resources.create.notice',
-              resource_name: resource_class.model_name.human)
+          redirect_after_create
         else
           render :new
         end
@@ -54,9 +52,7 @@ module AuxiliaryRails
 
       def update
         if update_resource
-          redirect_to resource_path(resource),
-            notice: t('resources.update.notice',
-              resource_name: resource_class.model_name.human)
+          redirect_after_update
         else
           render :edit
         end
@@ -65,9 +61,7 @@ module AuxiliaryRails
       def destroy
         destroy_resource
 
-        redirect_to collection_path,
-          notice: t('resources.destroy.notice',
-            resource_name: resource_class.model_name.human)
+        redirect_after_destroy
       end
 
       protected
@@ -164,6 +158,26 @@ module AuxiliaryRails
 
       def new_resource_path
         public_send(path_method_name(:resource, :new))
+      end
+
+      # redirects
+
+      def redirect_after_create
+        redirect_to resource_path(resource),
+          notice: t('resources.create.notice',
+            resource_name: resource_class.model_name.human)
+      end
+
+      def redirect_after_update
+        redirect_to resource_path(resource),
+          notice: t('resources.update.notice',
+            resource_name: resource_class.model_name.human)
+      end
+
+      def redirect_after_destroy
+        redirect_to collection_path,
+          notice: t('resources.destroy.notice',
+            resource_name: resource_class.model_name.human)
       end
 
       # system
