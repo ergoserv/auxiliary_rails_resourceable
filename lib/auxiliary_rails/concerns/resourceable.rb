@@ -29,7 +29,7 @@ module AuxiliaryRails
       def index
         @q = collection.ransack(params[:q])
         @q.sorts = default_sorts if @q.sorts.empty?
-        @pagy, @pagy_records = pagy(@q.result(distinct: true))
+        @pagy, @pagy_records = pagy(@q.result)
       end
 
       def new
@@ -37,7 +37,7 @@ module AuxiliaryRails
       end
 
       def create
-        if create_resource
+        if create_resource(resource_params)
           redirect_after_create
         else
           render :new
@@ -51,7 +51,7 @@ module AuxiliaryRails
       end
 
       def update
-        if update_resource
+        if update_resource(resource_params)
           redirect_after_update
         else
           render :edit
@@ -66,7 +66,7 @@ module AuxiliaryRails
 
       protected
 
-      # config
+      # configs
 
       def default_sorts
         %w[name title id].find { |v| v.in?(resource_class.column_names) } || []
@@ -80,12 +80,48 @@ module AuxiliaryRails
         @collection_name ||= controller_name
       end
 
+      def collection_scope
+        policy_scope(resource_class).all
+      end
+
       def resource_class
         @resource_class ||= resource_name.camelize.constantize
       end
 
       def resource_name
         @resource_name ||= collection_name.singularize
+      end
+
+      # actions
+
+      def build_resource(attributes = {})
+        resource_class.new(attributes)
+      end
+
+      def create_resource(attributes = {})
+        self.resource = build_resource(attributes)
+
+        authorize resource, :create?
+
+        resource.save
+      end
+
+      def find_resource
+        resource_class.find(id_param)
+      end
+
+      def update_resource(attributes = {})
+        resource.assign_attributes(attributes)
+
+        authorize resource, :update?
+
+        resource.save
+      end
+
+      def destroy_resource
+        authorize resource, :destroy?
+
+        resource.destroy
       end
 
       # helpers
@@ -97,10 +133,6 @@ module AuxiliaryRails
 
       def collection=(object)
         instance_variable_set("@#{collection_name}", object)
-      end
-
-      def collection_scope
-        policy_scope(resource_class)
       end
 
       def resource
@@ -116,36 +148,6 @@ module AuxiliaryRails
         params
           .require(resource_name)
           .permit(policy(resource_class).permitted_attributes)
-      end
-
-      def build_resource(attributes = {})
-        resource_class.new(attributes)
-      end
-
-      def create_resource
-        self.resource = build_resource(resource_params)
-
-        authorize resource, :create?
-
-        resource.save
-      end
-
-      def find_resource
-        resource_class.find(id_param)
-      end
-
-      def update_resource
-        resource.assign_attributes(resource_params)
-
-        authorize resource, :update?
-
-        resource.save
-      end
-
-      def destroy_resource
-        authorize resource, :destroy?
-
-        resource.destroy
       end
 
       def collection_path
