@@ -29,7 +29,7 @@ module AuxiliaryRails
       def index
         @q = collection.ransack(params[:q])
         @q.sorts = default_sorts if @q.sorts.empty?
-        @pagy, @pagy_records = pagy(@q.result)
+        @pagy, self.collection = pagy(@q.result)
       end
 
       def new
