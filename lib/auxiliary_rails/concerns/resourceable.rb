@@ -72,6 +72,13 @@ module AuxiliaryRails
         %w[name title id].find { |v| v.in?(resource_class.column_names) } || []
       end
 
+      # Defines an I18n scope for flash messages
+      #
+      # Use `controller_name` for scope as
+      def i18n_scope
+        :resources
+      end
+
       def id_param
         params[:id]
       end
@@ -166,20 +173,23 @@ module AuxiliaryRails
 
       def redirect_after_create
         redirect_to resource_path(resource),
-          notice: t('resources.create.notice',
-            resource_name: resource_class.model_name.human)
+          notice: t('create.notice',
+            resource_name: resource_class.model_name.human,
+            scope: i18n_scope)
       end
 
       def redirect_after_update
         redirect_to resource_path(resource),
-          notice: t('resources.update.notice',
-            resource_name: resource_class.model_name.human)
+          notice: t('update.notice',
+            resource_name: resource_class.model_name.human,
+            scope: i18n_scope)
       end
 
       def redirect_after_destroy
         redirect_to collection_path,
-          notice: t('resources.destroy.notice',
-            resource_name: resource_class.model_name.human)
+          notice: t('destroy.notice',
+            resource_name: resource_class.model_name.human,
+            scope: i18n_scope)
       end
 
       # system
