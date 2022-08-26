@@ -194,33 +194,22 @@ module AuxiliaryRails
 
       # system
 
-      def controller_module_parent
+      def controller_module_parent_name
         if Rails.version < '6'
-          raise NotImplementedError,
-            '`controller_module_parent` needs to be implented because ' \
-              'Rails < 6 does not supports `module_parent`'
+          return self.class.parent_name
         end
 
-        self.class.module_parent
+        self.class.module_parent_name
       end
 
-      # rubocop:disable Metrics/MethodLength
       def path_method_name(type, action = nil)
-        path_parts = [
-          'path',
-          (type.to_sym == :resource ? resource_name : controller_name)
-        ]
-
-        if controller_module_parent != Object
-          path_parts << controller_module_parent.to_s.underscore
-        end
-        if action.present?
-          path_parts << action
-        end
-
-        path_parts.reverse.join('_')
+        [
+          action,
+          controller_module_parent_name&.underscore,
+          (type.to_sym == :resource ? resource_name : controller_name),
+          'path'
+        ].compact.join('_')
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end
