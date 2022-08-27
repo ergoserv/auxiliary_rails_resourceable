@@ -27,9 +27,9 @@ module AuxiliaryRails
       end
 
       def index
-        @q = collection.ransack(params[:q])
-        @q.sorts = default_sorts if @q.sorts.empty?
-        @pagy, self.collection = pagy(@q.result)
+        @ransack = collection.ransack(search_params)
+        @ransack.sorts = default_sorts if @ransack.sorts.empty?
+        @pagy, self.collection = pagy(@ransack.result)
       end
 
       def new
@@ -74,13 +74,17 @@ module AuxiliaryRails
 
       # Defines an I18n scope for flash messages
       #
-      # Use `controller_name` for scope as
+      # Use `controller_name` for scoping as the name of the controller.
       def i18n_scope
         :resources
       end
 
       def id_param
         params[:id]
+      end
+
+      def search_params
+        params[:q]
       end
 
       def collection_name
