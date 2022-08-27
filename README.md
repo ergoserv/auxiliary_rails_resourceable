@@ -1,6 +1,15 @@
-# AuxiliaryRailsResourceable
+# AuxiliaryRails::Resourceable
 
 [![Gem](https://img.shields.io/gem/v/auxiliary_rails_resourceable.svg)](https://rubygems.org/gems/auxiliary_rails_resourceable)
+
+`Resourceable` module speeds up development by loading your controllers with RESTful (CRUD) actions.
+
+It is powered with search ([ransack](https://github.com/activerecord-hackery/ransack)), pagination ([pagy](https://github.com/ddnexus/pagy)) and policies ([pundit](https://github.com/varvet/pundit)).
+All these make your controllers and views much cleaner, so you can just focus on what is important.
+
+`Resourceable` aims to be as simple and flexible as possible and suggests customization using regular method overwriting instead of tricky configs or DSLs.
+Of course, it may not cover all possible cases, but if you need something really custom - just write custom code.
+
 
 ## Installation
 
@@ -10,16 +19,26 @@ Add one of these lines to your application's `Gemfile`:
 # version released to RubyGems (recommended)
 gem 'auxiliary_rails_resourceable'
 
-# or latest version from the repository
-gem 'auxiliary_rails_resourceable',
-  git: 'https://github.com/ergoserv/auxiliary_rails_resourceable'
-# or from a specific branch of the GitHub repository
+# or latest development version from a specific branch of the GitHub repository
 gem 'auxiliary_rails_resourceable',
   git: 'https://github.com/ergoserv/auxiliary_rails_resourceable',
   branch: 'develop'
 # or from a local path (for development and testing purposes)
 gem 'auxiliary_rails_resourceable',
   path: '../auxiliary_rails_resourceable'
+```
+
+Copy `resources.en.yml` to `config/locales/resources.en.yml`.
+
+Create views in `app/views/resources/`. Recommended structure for views:
+```
+index.html.erb
+new.html.erb
+show.html.erb
+edit.html.erb
+_form.html.erb
+_list.html.erb
+_search_form.html.erb
 ```
 
 ## Usage
@@ -31,25 +50,45 @@ class ResourcesController < ApplicationController
   include AuxiliaryRails::Concerns::Resourceable
 end
 
-# app/views/resources/
-# - index.html.erb
-# - new.html.erb
-# - show.html.erb
-# - edit.html.erb
-# - _form.html.erb
-# - _list.html.erb
-# - _search_form.html.erb
-
-# /config/locales/resources.en.yml
-en:
-  resources:
-    create:
-      notice: "%{resource_name} was successfully created."
-    update:
-      notice: "%{resource_name} was successfully updated."
-    destroy:
-      notice: "%{resource_name} was successfully destroyed."
+# app/controllers/products_controller.rb
+class ProductsController < ResourcesController
+end
 ```
+
+### Customization
+
+`Resourceable` is a very simple and clear module, just read its code and overwrite
+what you need in `ResourcesController` or any of its subclasses, e.g.:
+
+```ruby
+# app/controllers/products_controller.rb
+class ProductsController < ResourcesController
+  # Load additional data for views
+  def index
+    super
+    self.collection = collection.includes([:category])
+  end
+
+  protected
+
+  # Add any additional scopes to the collection scope
+  def collection_scope
+    policy_scope(Product).active.in_stock
+  end
+
+  # Overwrite Pagy configs using Pagy's methods
+  # https://github.com/ddnexus/pagy/blob/master/lib/pagy/backend.rb#L19
+  def pagy_get_vars(collection, vars)
+    vars[:items] = 250
+    super
+  end
+end
+```
+
+## References
+
+This gem is heavily inspired by [inherited_resources](https://github.com/activeadmin/inherited_resources) and [activeadmin](https://github.com/activeadmin/activeadmin).
+It even follows the naming for helpers of `inherited_resources` and in simple cases, can be used as a drop-in replacement with no to few code changes.
 
 ## Development
 
