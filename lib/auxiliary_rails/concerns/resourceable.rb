@@ -74,7 +74,11 @@ module AuxiliaryRails
 
       # Defines an I18n scope for flash messages
       #
-      # Use `controller_name` for scoping as the name of the controller.
+      # Possible options to use instead of `:resources`:
+      # - `controller_name`
+      # - `"#{controller_module_name}/resources"`
+      # - `"#{controller_module_name}/#{controller_name}"`
+      # - any other manual scope
       def i18n_scope
         :resources
       end
@@ -198,18 +202,18 @@ module AuxiliaryRails
 
       # system
 
-      def controller_module_parent_name
+      def controller_module_name
         if Rails.version < '6'
-          return self.class.parent_name
+          return self.class.parent_name&.underscore
         end
 
-        self.class.module_parent_name
+        self.class.module_parent_name&.underscore
       end
 
       def path_method_name(type, action = nil)
         [
           action,
-          controller_module_parent_name&.underscore,
+          controller_module_name,
           (type.to_sym == :resource ? resource_name : controller_name),
           'path'
         ].compact.join('_')

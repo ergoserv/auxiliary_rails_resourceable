@@ -88,7 +88,7 @@ end
 ## References
 
 This gem is heavily inspired by [inherited_resources](https://github.com/activeadmin/inherited_resources) and [activeadmin](https://github.com/activeadmin/activeadmin).
-It even follows the naming for helpers of `inherited_resources` and in simple cases, can be used as a drop-in replacement with no to few code changes.
+It even follows the naming for helpers of `inherited_resources` and, in simple cases, can be used as a drop-in replacement with no or just a few code changes.
 
 ## Development
 
