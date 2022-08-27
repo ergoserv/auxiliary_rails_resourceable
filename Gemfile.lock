@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auxiliary_rails_resourceable (0.1.0)
+    auxiliary_rails_resourceable (0.1.1)
       pagy
       pundit
       rails (>= 5.2)
