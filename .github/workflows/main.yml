@@ -10,8 +10,8 @@ on:
 
 jobs:
   build:
+    name: Run Checks on Ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby:

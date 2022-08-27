@@ -4,19 +4,23 @@
 
 ## Installation
 
-Add this line to your application's `Gemfile`:
+Add one of these lines to your application's `Gemfile`:
 
 ```ruby
+# version released to RubyGems (recommended)
 gem 'auxiliary_rails_resourceable'
+
+# or latest version from the repository
+gem 'auxiliary_rails_resourceable',
+  git: 'https://github.com/ergoserv/auxiliary_rails_resourceable'
+# or from a specific branch of the GitHub repository
+gem 'auxiliary_rails_resourceable',
+  git: 'https://github.com/ergoserv/auxiliary_rails_resourceable',
+  branch: 'develop'
+# or from a local path (for development and testing purposes)
+gem 'auxiliary_rails_resourceable',
+  path: '../auxiliary_rails_resourceable'
 ```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install auxiliary_rails_resourceable
 
 ## Usage
 
