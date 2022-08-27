@@ -1,9 +1,10 @@
-name: Ruby
+name: Run Checks
 
 on:
   push:
     branches:
       - master
+      - develop
 
   pull_request:
 
