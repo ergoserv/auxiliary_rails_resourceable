@@ -180,24 +180,33 @@ module AuxiliaryRails
       # redirects
 
       def redirect_after_create
-        redirect_to resource_path(resource),
-          notice: t('create.notice',
+        if flash[:notice].blank?
+          flash[:notice] = t('create.notice',
             resource_name: resource_class.model_name.human,
             scope: i18n_scope)
+        end
+
+        redirect_to resource_path(resource)
       end
 
       def redirect_after_update
-        redirect_to resource_path(resource),
-          notice: t('update.notice',
+        if flash[:notice].blank?
+          flash[:notice] = t('update.notice',
             resource_name: resource_class.model_name.human,
             scope: i18n_scope)
+        end
+
+        redirect_to resource_path(resource)
       end
 
       def redirect_after_destroy
-        redirect_to collection_path,
-          notice: t('destroy.notice',
+        if flash[:notice].blank?
+          flash[:notice] = t('destroy.notice',
             resource_name: resource_class.model_name.human,
             scope: i18n_scope)
+        end
+
+        redirect_to collection_path
       end
 
       # system
