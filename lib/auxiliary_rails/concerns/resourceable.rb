@@ -67,12 +67,12 @@ module AuxiliaryRails
 
       # configs
 
-      def authorize_resource
-        authorize resource
+      def authorize_resource(query = nil, policy_class: nil)
+        authorize resource, query, policy_class: policy_class
       end
 
-      def authorize_resource_class
-        authorize resource_class
+      def authorize_resource_class(query = nil, policy_class: nil)
+        authorize resource_class, query, policy_class: policy_class
       end
 
       def default_sorts
