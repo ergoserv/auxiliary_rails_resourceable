@@ -7,13 +7,8 @@ module AuxiliaryRails
       include Pundit::Authorization
 
       included do
-        before_action only: %i[index new] do
-          authorize resource_class
-        end
-        before_action :resource, only: %i[show edit] do
-          authorize resource
-        end
-
+        before_action :authorize_resource_class, only: %i[index new create]
+        before_action :authorize_resource, only: %i[show edit update destroy]
         after_action :verify_authorized
         after_action :verify_policy_scoped, only: %i[index]
 
@@ -37,7 +32,9 @@ module AuxiliaryRails
       end
 
       def create
-        if create_resource(resource_params)
+        self.resource = build_resource(resource_params)
+
+        if resource.save
           redirect_after_create
         else
           render :new
@@ -51,7 +48,9 @@ module AuxiliaryRails
       end
 
       def update
-        if update_resource(resource_params)
+        resource.assign_attributes(resource_params)
+
+        if resource.save
           redirect_after_update
         else
           render :edit
@@ -59,7 +58,7 @@ module AuxiliaryRails
       end
 
       def destroy
-        destroy_resource
+        resource.destroy
 
         redirect_after_destroy
       end
@@ -67,6 +66,14 @@ module AuxiliaryRails
       protected
 
       # configs
+
+      def authorize_resource
+        authorize resource
+      end
+
+      def authorize_resource_class
+        authorize resource_class
+      end
 
       def default_sorts
         %w[name title id].find { |v| v.in?(resource_class.column_names) } || []
@@ -113,30 +120,8 @@ module AuxiliaryRails
         resource_class.new(attributes)
       end
 
-      def create_resource(attributes = {})
-        self.resource = build_resource(attributes)
-
-        authorize resource, :create?
-
-        resource.save
-      end
-
       def find_resource
         resource_class.find(id_param)
-      end
-
-      def update_resource(attributes = {})
-        resource.assign_attributes(attributes)
-
-        authorize resource, :update?
-
-        resource.save
-      end
-
-      def destroy_resource
-        authorize resource, :destroy?
-
-        resource.destroy
       end
 
       # helpers
