@@ -1,6 +1,10 @@
-# AuxiliaryRailsResourceable
+# AuxiliaryRails-Resourceable
 
 [![Gem](https://img.shields.io/gem/v/auxiliary_rails_resourceable.svg)](https://rubygems.org/gems/auxiliary_rails_resourceable)
+
+AuxiliaryRails-Resourceable speeds up development by making your controllers inherit all restful actions and benefit from inherited views so you can focus on what is important. It makes your core cleaner and more consistent.
+
+It is heavily inspired by the loved (inherited_resources)[https://github.com/activeadmin/inherited_resources] gem but much lighter (~220 lines only), with an approach of "just overwrite what you need" instead of complex configuration options.
 
 ## Installation
 
