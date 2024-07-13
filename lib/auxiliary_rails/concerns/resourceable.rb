@@ -14,6 +14,7 @@ module AuxiliaryRails
 
         helper_method :collection
         helper_method :collection_path
+        helper_method :form_resource
         helper_method :resource
         helper_method :resource_class
         helper_method :resource_params
@@ -148,6 +149,14 @@ module AuxiliaryRails
         params
           .require(resource_name)
           .permit(policy(resource_class).permitted_attributes)
+      end
+
+      def form_resource
+        if controller_module_name.blank?
+          resource
+        else
+          [controller_module_name.to_sym, resource]
+        end
       end
 
       def collection_path
