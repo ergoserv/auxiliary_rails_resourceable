@@ -9,6 +9,7 @@ module AuxiliaryRails
       included do
         before_action :authorize_resource_class, only: %i[index new create]
         before_action :authorize_resource, only: %i[show edit update destroy]
+        before_action :set_lookup_context_prefixes
         after_action :verify_authorized
         after_action :verify_policy_scoped, only: %i[index]
 
@@ -220,6 +221,10 @@ module AuxiliaryRails
           (type.to_sym == :resource ? resource_name : controller_name),
           'path'
         ].compact.join('_')
+      end
+
+      def set_lookup_context_prefixes
+        lookup_context.prefixes << 'resourceable'
       end
     end
   end
