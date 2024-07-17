@@ -30,7 +30,7 @@ module AuxiliaryRails
       end
 
       def new
-        self.resource = build_resource
+        self.resource = build_resource(resource_params)
       end
 
       def create
