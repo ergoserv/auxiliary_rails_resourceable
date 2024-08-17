@@ -30,7 +30,8 @@ gem 'auxiliary_rails_resourceable',
 
 Copy `resources.en.yml` to `config/locales/resources.en.yml`.
 
-Create views in `app/views/resources/`. Recommended structure for views:
+Create shared views in `app/views/resources/` (or `app/views/resourceable/` if your need to share views for modules).
+Recommended structure for views:
 ```
 index.html.erb
 new.html.erb
