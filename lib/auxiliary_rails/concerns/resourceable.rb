@@ -37,7 +37,10 @@ module AuxiliaryRails
         self.resource = build_resource(resource_params)
 
         if resource.save
-          redirect_after_create
+          respond_to do |format|
+            format.html { redirect_after_create }
+            format.json
+          end
         else
           render :new
         end
@@ -53,7 +56,10 @@ module AuxiliaryRails
         resource.assign_attributes(resource_params)
 
         if resource.save
-          redirect_after_update
+          respond_to do |format|
+            format.html { redirect_after_update }
+            format.json
+          end
         else
           render :edit
         end
@@ -62,7 +68,10 @@ module AuxiliaryRails
       def destroy
         resource.destroy
 
-        redirect_after_destroy
+        respond_to do |format|
+          format.html { redirect_after_destroy }
+          format.json
+        end
       end
 
       protected
