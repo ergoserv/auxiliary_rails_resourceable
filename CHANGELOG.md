@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.3] - 2022-08-17
+
+- Set minimal version for gem dependencies
+
 ## [0.1.2] - 2022-08-17
 
 - Added `human_name` and `human_name_plural` helpers

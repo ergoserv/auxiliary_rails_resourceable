@@ -44,6 +44,8 @@ _search_form.html.erb
 
 ## Usage
 
+Just define `ResourcesController` and inherit controllers from it for fulfilling them with the all the basic CRUD actions.
+
 ```ruby
 # app/controllers/resources_controller.rb
 # @abstract
@@ -89,7 +91,7 @@ end
 ## References
 
 This gem is heavily inspired by [inherited_resources](https://github.com/activeadmin/inherited_resources) and [activeadmin](https://github.com/activeadmin/activeadmin).
-It even follows the naming for helpers of `inherited_resources` and, in simple cases, can be used as a drop-in replacement with no or just a few code changes.
+It even follows the naming for helpers of `inherited_resources`, but much lighter (~250 lines of code only), with an approach of "just overwrite what you need" instead of complex configuration options. And, in simple cases, can be used as a drop-in replacement with no or just a few code changes.
 
 ## Development
 
