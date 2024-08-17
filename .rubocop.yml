@@ -40,3 +40,8 @@ Style/IfUnlessModifier:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+Style/Documentation:
+  Exclude:
+    - lib/auxiliary_rails/view_helpers/human_name_helper.rb
+    - lib/auxiliary_rails_resourceable/railtie.rb

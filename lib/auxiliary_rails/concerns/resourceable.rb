@@ -143,21 +143,21 @@ module AuxiliaryRails
       # helpers
 
       def collection
-        instance_variable_get("@#{collection_name}") ||
+        instance_variable_get(:"@#{collection_name}") ||
           (self.collection = collection_scope)
       end
 
       def collection=(object)
-        instance_variable_set("@#{collection_name}", object)
+        instance_variable_set(:"@#{collection_name}", object)
       end
 
       def resource
-        instance_variable_get("@#{resource_name}") ||
+        instance_variable_get(:"@#{resource_name}") ||
           (self.resource = find_resource)
       end
 
       def resource=(object)
-        instance_variable_set("@#{resource_name}", object)
+        instance_variable_set(:"@#{resource_name}", object)
       end
 
       def resource_params
