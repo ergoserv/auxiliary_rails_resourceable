@@ -30,7 +30,12 @@ module AuxiliaryRails
       end
 
       def new
-        self.resource = build_resource(resource_params)
+        self.resource =
+          if params.key?(resource_name)
+            build_resource(resource_params)
+          else
+            build_resource
+          end
       end
 
       def create
