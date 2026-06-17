@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'pagy'
+  spec.add_dependency 'pagy', '>= 43'
   spec.add_dependency 'pundit'
   spec.add_dependency 'rails', '>= 5.2'
   spec.add_dependency 'ransack'

@@ -3,7 +3,7 @@ module AuxiliaryRails
     # Resourceable - concern for controllers
     module Resourceable
       extend ActiveSupport::Concern
-      include Pagy::Backend
+      include Pagy::Method
       include Pundit::Authorization
 
       included do
@@ -26,7 +26,7 @@ module AuxiliaryRails
       def index
         @ransack = collection.ransack(search_params)
         @ransack.sorts = default_sorts if @ransack.sorts.empty?
-        @pagy, self.collection = pagy(@ransack.result)
+        @pagy, self.collection = pagy(:offset, @ransack.result)
       end
 
       def new
@@ -47,7 +47,7 @@ module AuxiliaryRails
             format.json
           end
         else
-          render :new
+          render :new, status: :unprocessable_entity
         end
       end
 
@@ -66,7 +66,7 @@ module AuxiliaryRails
             format.json
           end
         else
-          render :edit
+          render :edit, status: :unprocessable_entity
         end
       end
 
