@@ -15,6 +15,7 @@ module AuxiliaryRails
 
         helper_method :collection
         helper_method :collection_path
+        helper_method :collection_policy
         helper_method :form_resource
         helper_method :resource
         helper_method :resource_class
@@ -116,6 +117,10 @@ module AuxiliaryRails
 
       def collection_name
         @collection_name ||= controller_name
+      end
+
+      def collection_policy
+        policy(resource_class)
       end
 
       def collection_scope
