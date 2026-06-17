@@ -48,7 +48,7 @@ module AuxiliaryRails
             format.json
           end
         else
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
       end
 
@@ -67,7 +67,7 @@ module AuxiliaryRails
             format.json
           end
         else
-          render :edit, status: :unprocessable_entity
+          render :edit, status: :unprocessable_content
         end
       end
 
